@@ -11,6 +11,6 @@ module.exports = {
         const data = await axios.get(fileUrl).then(response => { return response.data; })
         const parsedRecords = await parse(data, parserOpts);
         const [lastItem] = parsedRecords.slice(-1);
-        await fs.writeFileSync('data/vaccinations.json', JSON.stringify(lastItem));
+        await fs.writeFileSync('static/data/vaccinations.json', JSON.stringify(lastItem));
     },
 }

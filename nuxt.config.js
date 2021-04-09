@@ -4,9 +4,9 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'gevaccineerd',
+    title: 'Hoeveel is er al gevaccineerd?',
     htmlAttrs: {
-      lang: 'en',
+      lang: 'nl',
     },
     meta: [
       { charset: 'utf-8' },
@@ -20,7 +20,9 @@ export default {
   css: [],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [],
+  plugins: [
+    '~/plugins/vue-numeral-filter.js'
+  ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -43,5 +45,7 @@ export default {
   axios: {},
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {},
+  build: {
+    transpile: ['vue-numeral-filter'],
+  },
 }

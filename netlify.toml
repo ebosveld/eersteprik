@@ -1,2 +1,2 @@
 [[plugins]]
-package = "/.netlify/plugins/fetch-remote-content"
+package = "/netlify-plugins/fetch-remote-content"

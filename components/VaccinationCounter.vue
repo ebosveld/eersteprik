@@ -5,19 +5,14 @@
     </div>
 </template>
 <script>
-import vaccinations from 'static/data/vaccinations.json'
-
 export default {
-    computed: {
-      percentageVaccinated(){
-        const peopleVaccinated = vaccinations.people_vaccinated;
-        return (peopleVaccinated/this.population);
-      }
+  computed: {
+    percentageVaccinated() {
+      return this.$store.state.percentageFirstVaccinated
     },
-    data() {
-      return {
-        population: 14175230
-      }
+    population() {
+      return this.$store.state.population
     },
+  },
 }
 </script>

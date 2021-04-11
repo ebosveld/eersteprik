@@ -1,4 +1,7 @@
-# gevaccineerd
+# Eerste prik
+
+## Purpose
+To combat the Coronavirus crisis, Dutch minister for Health Hugo de Jonge declared that every adult who was willing, could get the first shot of the vaccine by July 1st. This dashboard is tracking if we're on target to reach that goal.
 
 ## Build Setup
 

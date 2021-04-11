@@ -19,8 +19,49 @@
   </div>
 </template>
 
-<script lang="ts">
-import Vue from 'vue'
+<script lang="js">
+import getShareImage from '@jlengstorf/get-share-image';
+import numeral from 'numeral';
 
-export default Vue.extend({})
+export default {
+  async asyncData({store, $moment}){
+    const percentage = numeral(store.state.percentageFirstVaccinated).format('0.[00]%');
+    const updated = $moment(store.state.lastUpdated).format('DD MMMM');
+    const socialImage = getShareImage({
+        title: `${percentage}`,
+        tagline:  `heeft een eerste prik gehad op ${updated}`,
+        cloudName: 'duau4ijyn',
+        imagePublicID: 'socialmedia-template_t2mzn9.png',
+        titleExtraConfig: '_line_spacing_-10',
+        titleFont: 'ngdk69vmj13i1vjtu4if.ttf',
+        titleFontSize: '72',
+        taglineFontSize: '48',
+        taglineFont: 'yg4i8tydo5d7jmyebjsh.ttf',
+        textColor: 'fff',
+        textLeftOffset: '100',
+        titleBottomOffset: '350',
+        taglineTopOffset: '340'
+      });
+
+    return { socialImage }
+  },
+  head() {
+    return [
+      {
+        property: "article:modified_time",
+        content: this.$store.state.lastUpdated
+      },
+      {
+        hid: "og:image",
+        name: "og:image",
+        content: this.socialImage,
+      },
+      {
+        hid: "twitter:image",
+        name: "twitter:image",
+        content: this.socialImage,
+      }
+    ]
+  }
+}
 </script>

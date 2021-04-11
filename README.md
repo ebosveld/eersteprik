@@ -24,6 +24,7 @@ Currently our data is being crawled from [Our World in Data](https://ourworldind
 The data is stored in `/static/data` and a version of the data is stored in this repository for ease of starting development. With every build by Netlify the data is being pull from the sources using a build plugin.
 
 ## Contributing
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
 ## Credits
 

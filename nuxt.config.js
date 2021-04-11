@@ -4,7 +4,7 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'Hoeveel is er al gevaccineerd?',
+    title: 'Eerste Prik',
     htmlAttrs: {
       lang: 'nl',
     },

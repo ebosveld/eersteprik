@@ -21,6 +21,7 @@
 
 <script lang="js">
 import getShareImage from '@jlengstorf/get-share-image';
+import getSiteMeta from "~/utils/getSiteMeta.js";
 import numeral from 'numeral';
 
 export default {
@@ -45,23 +46,18 @@ export default {
 
     return { socialImage }
   },
+  computed: {
+    meta() {
+      const metaData = {
+        mainImage: this.socialImage,
+      };
+      return getSiteMeta(metaData);
+    }
+  },
   head() {
-    return [
-      {
-        property: "article:modified_time",
-        content: this.$store.state.lastUpdated
-      },
-      {
-        hid: "og:image",
-        name: "og:image",
-        content: this.socialImage,
-      },
-      {
-        hid: "twitter:image",
-        name: "twitter:image",
-        content: this.socialImage,
-      }
-    ]
+    return {
+      meta: this.meta
+    }
   }
 }
 </script>

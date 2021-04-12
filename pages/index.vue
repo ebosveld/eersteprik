@@ -8,7 +8,7 @@
     </div>
     <footer class="pb-2 px-3 w-screen flex flex-row text-xs justify-between items-center">
       <div class="text-gray-400">
-        Bron: <a class="underline" href="https://www.rivm.nl/covid-19-vaccinatie/cijfers-vaccinatieprogramma">RIVM</a> (via <a class="underline" href="https://ourworldindata.org/covid-vaccinations">Our World in Data</a>) &amp; CBS (bevolkingstelling op 1 maart 2021)
+        Bron: <a class="underline" href="https://www.rivm.nl/covid-19-vaccinatie/cijfers-vaccinatieprogramma">RIVM</a> (bijgewerkt op {{ lastUpdated }}) &amp; CBS (bevolkingstelling op 1 maart 2021)
       </div>
       <div class="self-end">
         <a href="https://github.com/ebosveld/eersteprik" class="text-gray-400 hover:text-gray-500 transition-colors duration-200">
@@ -27,10 +27,10 @@ import numeral from 'numeral';
 export default {
   async asyncData({store, $moment}){
     const percentage = numeral(store.state.percentageFirstVaccinated).format('0.[00]%');
-    const updated = $moment(store.state.lastUpdated).format('DD MMMM');
+    const lastUpdated = $moment(store.state.lastUpdated).format('DD MMMM');
     const socialImage = getShareImage({
         title: `${percentage}`,
-        tagline:  `heeft een eerste prik gehad op ${updated}`,
+        tagline:  `heeft een eerste prik gehad op ${lastUpdated}`,
         cloudName: 'duau4ijyn',
         imagePublicID: 'socialmedia-template_t2mzn9.png',
         titleExtraConfig: '_line_spacing_-10',
@@ -44,7 +44,7 @@ export default {
         taglineTopOffset: '340'
       });
 
-    return { socialImage }
+    return { socialImage, lastUpdated }
   },
   computed: {
     meta() {

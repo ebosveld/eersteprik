@@ -1,16 +1,26 @@
 
-const axios  = require('axios');
-const parse  = require('csv-parse/lib/sync')
-const fs      = require('fs');
+const axios = require('axios');
+const cheerio = require('cheerio');
+const moment = require('moment');
+const fs = require('fs');
 
 module.exports = {
     onPreBuild: async () => {
-        let fileUrl = 'https://raw.githubusercontent.com/owid/covid-19-data/master/scripts/scripts/vaccinations/automations/output/Netherlands.csv'
+        moment.locale('nl');
 
-        const parserOpts = { columns: true, skip_empty_lines: true};
-        const data = await axios.get(fileUrl).then(response => { return response.data; })
-        const parsedRecords = await parse(data, parserOpts);
-        const [lastItem] = parsedRecords.slice(-1);
-        await fs.writeFileSync('static/data/vaccinations.json', JSON.stringify(lastItem));
+        const source = 'https://www.rivm.nl/covid-19-vaccinatie/cijfers-vaccinatieprogramma'
+        const { data } = await axios.get(source);
+        const $ = cheerio.load(data);
+
+        const dateHeading = $('div.content-block-wrapper h2:last').text();
+        const lastUpdated = moment(dateHeading.split('t/m')[1].trim(), 'DD MMMM YYYY').format('YYYY-MM-DD');
+        const firstVaccinations = $('table tr:last').children('td:nth(3)').text().replace(/\./g, '');
+
+        const newData = {
+            lastUpdate: lastUpdated,
+            firstVaccinations: firstVaccinations
+        }
+
+        await fs.writeFileSync('static/data/vaccinations.json', JSON.stringify(newData));
     },
 }

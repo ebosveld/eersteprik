@@ -1,8 +1,8 @@
 import vaccinations from '~/static/data/vaccinations.json';
 
 export default function ({ params, store }) {
-    const firstVaccinations = vaccinations.people_vaccinated;
-    const lastUpdated = vaccinations.date;
+    const firstVaccinations = vaccinations.firstVaccinations;
+    const lastUpdated = vaccinations.lastUpdate;
     const population = store.state.population;
     const percentageVaccination = firstVaccinations / population;
 

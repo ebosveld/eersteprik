@@ -6,7 +6,7 @@
     <div class="w-screen place-content-center flex-grow flex flex-col text-center">
       <vaccination-counter />
     </div>
-    <footer class="pb-2 px-3 w-screen flex flex-row text-xs justify-between items-center">
+    <footer class="pb-2 px-3 flex flex-row text-xs justify-between items-center">
       <div class="text-gray-400">
         Bron: <a class="underline" href="https://www.rivm.nl/covid-19-vaccinatie/cijfers-vaccinatieprogramma">RIVM</a> (bijgewerkt op {{ lastUpdated }}) &amp; CBS (bevolkingstelling op 1 maart 2021)
       </div>

@@ -15,7 +15,8 @@ module.exports = {
         const $ = cheerio.load(data);
 
         const dateHeading = $('div.content-block-wrapper h2:last').text();
-        const lastUpdated = moment(dateHeading.split('t/m')[1].trim(), 'DD MMMM YYYY').format('YYYY-MM-DD');
+        const lastUpdatedText = dateHeading.split('t/m')[1].trim().replace(/\u00a0/g, " ");
+        const lastUpdated = moment(lastUpdatedText, 'DD MMMM YYYY').format('YYYY-MM-DD');
         const firstVaccinations = $('table tr:last').children('td:nth(3)').text().replace(/\./g, '');
 
         const newData = {

@@ -1,18 +1,25 @@
 export const state = () => ({
-    firstVaccinations: 0,
+    partiallyVaccinated: 0,
+    fullyVaccinated: 0,
     population: 14175230,
-    percentageFirstVaccinated: 0,
+    percentagePartiallyVaccinated: 0,
+    percentageFullyVaccinated: 0,
     lastUpdated: '2021-03-28'
 })
 
 export const mutations = {
-    updateFirstVaccinations(state, data) {
-        state.firstVaccinations = data
+    updatePartiallyVaccinated(state, data) {
+        state.partiallyVaccinated = data
     },
-    updatePercentageFirstVaccinated(state, data) {
-        state.percentageFirstVaccinated = data
-    }
-    ,
+    updateFullyVaccinated(state, data) {
+        state.fullyVaccinated = data
+    },
+    updatePercentagePartiallyVaccinated(state, data) {
+        state.percentagePartiallyVaccinated = data
+    },
+    updatePercentageFullyVaccinated(state, data) {
+        state.percentageFullyVaccinated = data
+    },
     updateLastUpdate(state, data) {
         state.lastUpdated = data
     }

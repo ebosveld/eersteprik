@@ -26,10 +26,11 @@ import numeral from 'numeral';
 
 export default {
   async asyncData({store, $moment}){
-    const percentage = numeral(store.state.percentageFirstVaccinated).format('0.[00]%');
+    const percentagePartially = numeral(store.state.percentagePartiallyVaccinated).format('0.[00]%');
+    const percentageFully = numeral(store.state.percentageFullyaccinated).format('0.[00]%');
     const lastUpdated = $moment(store.state.lastUpdated).format('DD MMMM');
     const socialImage = getShareImage({
-        title: `${percentage}`,
+        title: `${percentagePartially}`,
         tagline:  `heeft een eerste prik gehad op ${lastUpdated}`,
         cloudName: 'duau4ijyn',
         imagePublicID: 'socialmedia-template_t2mzn9.png',

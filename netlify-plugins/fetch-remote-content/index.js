@@ -1,6 +1,5 @@
 
 const axios = require('axios');
-const cheerio = require('cheerio');
 const moment = require('moment');
 const fs = require('fs');
 
@@ -10,17 +9,31 @@ module.exports = {
     onPreBuild: async () => {
         moment.locale('nl');
 
-        const source = 'https://www.rivm.nl/covid-19-vaccinatie/cijfers-vaccinatieprogramma'
+        const source = 'https://coronadashboard.rijksoverheid.nl/json/NL.json';
         const { data } = await axios.get(source);
-        const $ = cheerio.load(data);
 
-        const dateHeading = $('div.content-block-wrapper h2:last').text();
-        const lastUpdated = moment(dateHeading.split('t/m')[1].trim(), 'DD MMMM YYYY').format('YYYY-MM-DD');
-        const firstVaccinations = $('table tr:last').children('td:nth(3)').text().replace(/\./g, '');
+        const vaccineCoverage = data.vaccine_coverage.last_value;
+
+        const coverageData = {
+            lastUpdate: moment.unix(vaccineCoverage.date_end_unix).format('YYYY-MM-DD'),
+            partiallyVaccinated: vaccineCoverage.partially_or_fully_vaccinated,
+            fullyVaccinated: vaccineCoverage.fully_vaccinated
+        };
+
+        const administered = data.vaccine_administered_estimate.last_value;
+        const vaccineAdministratedData = {
+            lastUpdate: moment.unix(administered.date_end_unix).format('YYYY-MM-DD'),
+            pfizer: administered.pfizer,
+            moderna: administered.moderna,
+            janssen: administered.janssen,
+            astrazeneca: administered.astra_zeneca,
+            total: administered.total
+        }
 
         const newData = {
-            lastUpdate: lastUpdated,
-            firstVaccinations: firstVaccinations
+            lastUpdate: moment().format('YYYY-MM-DD'),
+            coverage: coverageData,
+            administered: vaccineAdministratedData
         }
 
         await fs.writeFileSync('static/data/vaccinations.json', JSON.stringify(newData));

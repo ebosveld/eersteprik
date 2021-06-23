@@ -1,1 +1,16 @@
-{"lastUpdate":"2021-04-04","firstVaccinations":"2057562"}
+{
+    "lastUpdate": "2021-06-23",
+    "coverage": {
+        "lastUpdate": "2021-06-20",
+        "partiallyVaccinated": 8802395,
+        "fullyVaccinated": 5001654
+    },
+    "administered": {
+        "lastUpdate": "2021-07-18",
+        "pfizer": 13783499,
+        "moderna": 1583303,
+        "janssen": 614684,
+        "astrazeneca": 3034933,
+        "total": 19016419
+    }
+}

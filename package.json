@@ -41,5 +41,10 @@
     "eslint-plugin-vue": "^7.11.1",
     "postcss": "^8.3.5",
     "prettier": "^2.3.1"
+  },
+  "resolutions": {
+    "nuxt/**/normalize-url": "^6.0.1",
+    "nuxt/**/css-what": "^5.0.1",
+    "nuxt/**/glob-parent": "^5.1.2"
   }
 }

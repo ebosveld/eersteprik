@@ -9,6 +9,8 @@ module.exports = {
     onPreBuild: async () => {
         moment.locale('nl');
 
+        const oldData = JSON.parse(fs.readFileSync('static/data/vaccinations.json'));
+
         const source = 'https://coronadashboard.rijksoverheid.nl/json/NL.json';
         const { data } = await axios.get(source);
 
@@ -19,6 +21,16 @@ module.exports = {
             partiallyVaccinated: vaccineCoverage.partially_or_fully_vaccinated,
             fullyVaccinated: vaccineCoverage.fully_vaccinated
         };
+
+        console.log('--- Partially vaccinated ---');
+        console.log('Previous number: ' + oldData.coverage.partiallyVaccinated);
+        console.log('New number: ' + coverageData.partiallyVaccinated);
+        console.log('Difference: ' + (coverageData.partiallyVaccinated - oldData.coverage.partiallyVaccinated));
+
+        console.log('--- Fully vaccinated ---');
+        console.log('Previous number: ' + oldData.coverage.fullyVaccinated);
+        console.log('New number: ' + coverageData.fullyVaccinated);
+        console.log('Difference: ' + (coverageData.fullyVaccinated - oldData.coverage.fullyVaccinated));
 
         const administered = data.vaccine_administered_estimate.last_value;
         const vaccineAdministratedData = {

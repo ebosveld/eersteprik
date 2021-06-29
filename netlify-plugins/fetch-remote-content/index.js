@@ -1,5 +1,6 @@
 
 const axios = require('axios');
+const cheerio = require('cheerio');
 const moment = require('moment');
 const fs = require('fs');
 
@@ -11,15 +12,18 @@ module.exports = {
 
         const oldData = JSON.parse(fs.readFileSync('static/data/vaccinations.json'));
 
-        const source = 'https://coronadashboard.rijksoverheid.nl/json/NL.json';
+        const source = 'https://www.rivm.nl/covid-19-vaccinatie/cijfers-vaccinatieprogramma'
         const { data } = await axios.get(source);
+        const $ = cheerio.load(data);
 
-        const vaccineCoverage = data.vaccine_coverage.last_value;
+        const dateHeading = $('div.content-block-wrapper h2:last').text();
+        const lastUpdated = moment(dateHeading.split('t/m')[1].trim(), 'DD MMMM YYYY').format('YYYY-MM-DD');
+        const partiallyVaccinated = $('table tr:last').children('td:nth(3)').text().replace(/\./g, '');
+        const fullyVaccinated = $('table tr:last').children('td:nth(4)').text().replace(/\./g, '');
 
         const coverageData = {
-            lastUpdate: moment.unix(vaccineCoverage.date_end_unix).format('YYYY-MM-DD'),
-            partiallyVaccinated: vaccineCoverage.partially_or_fully_vaccinated,
-            fullyVaccinated: vaccineCoverage.fully_vaccinated
+            partiallyVaccinated: partiallyVaccinated,
+            fullyVaccinated: fullyVaccinated
         };
 
         console.log('--- Partially vaccinated ---');
@@ -32,20 +36,9 @@ module.exports = {
         console.log('New number: ' + coverageData.fullyVaccinated);
         console.log('Difference: ' + (coverageData.fullyVaccinated - oldData.coverage.fullyVaccinated));
 
-        const administered = data.vaccine_administered_estimate.last_value;
-        const vaccineAdministratedData = {
-            lastUpdate: moment.unix(administered.date_end_unix).format('YYYY-MM-DD'),
-            pfizer: administered.pfizer,
-            moderna: administered.moderna,
-            janssen: administered.janssen,
-            astrazeneca: administered.astra_zeneca,
-            total: administered.total
-        }
-
         const newData = {
-            lastUpdate: moment().format('YYYY-MM-DD'),
-            coverage: coverageData,
-            administered: vaccineAdministratedData
+            lastUpdate: lastUpdated,
+            coverage: coverageData
         }
 
         await fs.writeFileSync('static/data/vaccinations.json', JSON.stringify(newData));

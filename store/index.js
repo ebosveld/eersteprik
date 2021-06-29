@@ -1,7 +1,7 @@
 export const state = () => ({
     partiallyVaccinated: 0,
     fullyVaccinated: 0,
-    population: 14175230,
+    population: 14070340,
     percentagePartiallyVaccinated: 0,
     percentageFullyVaccinated: 0,
     lastUpdated: '2021-03-28'

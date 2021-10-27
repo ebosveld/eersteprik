@@ -18,8 +18,8 @@ module.exports = {
 
         const dateHeading = $('div.content-block-wrapper h2:last').text();
         const lastUpdated = moment(dateHeading.split('t/m')[1].trim(), 'DD MMMM YYYY').format('YYYY-MM-DD');
-        const partiallyVaccinated = $('table:first tr:last').children('td:nth(3)').text().replace(/\./g, '');
-        const fullyVaccinated = $('table:first tr:last').children('td:nth(4)').text().replace(/\./g, '');
+        const partiallyVaccinated = $('table:first tr:last').children('td:nth(4)').text().replace(/\./g, '');
+        const fullyVaccinated = $('table:first tr:last').children('td:nth(5)').text().replace(/\./g, '');
 
         const coverageData = {
             partiallyVaccinated: partiallyVaccinated,

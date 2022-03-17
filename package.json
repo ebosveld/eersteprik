@@ -41,7 +41,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-vue": "^7.20.0",
     "postcss": "^8.3.11",
-    "prettier": "^2.4.1"
+    "prettier": "^2.6.0"
   },
   "resolutions": {
     "nuxt/**/normalize-url": "^6.0.1",
